@@ -1,70 +1,48 @@
-﻿using System;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using TranslationManagement.Api.Controllers.Base;
+using TranslationManagement.BusinessLogic.Services;
+using TranslationManagement.BusinessLogic.Services.Interfaces;
+using TranslationManagement.ViewModels.Translator;
 
 namespace TranslationManagement.Api.Controlers
 {
     public class TranslatorManagementController : BaseApiController
     {
-        public class TranslatorModel
+        private readonly ITranslatorService _translatorService;
+
+        public TranslatorManagementController(ITranslatorService translatorService)
         {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string HourlyRate { get; set; }
-            public string Status { get; set; }
-            public string CreditCardNumber { get; set; }
-        }
-
-        public static readonly string[] TranslatorStatuses = { "Applicant", "Certified", "Deleted" };
-
-        private readonly ILogger<TranslatorManagementController> _logger;
-        //private AppDbContext _context;
-
-        public TranslatorManagementController(IServiceScopeFactory scopeFactory, ILogger<TranslatorManagementController> logger)
-        {
-            //_context = scopeFactory.CreateScope().ServiceProvider.GetService<AppDbContext>();
-            _logger = logger;
+            _translatorService = translatorService;
         }
 
         [HttpGet]
-        public TranslatorModel[] GetTranslators()
+        public async Task<IActionResult> GetTranslators()
         {
-            return null;
-            //return _context.Translators.ToArray();
+            ResponseGetListTranslatorModel result = await _translatorService.GetList();
+            return Ok(result);
         }
 
         [HttpGet]
-        public TranslatorModel[] GetTranslatorsByName(string name)
+        public async Task<IActionResult> GetTranslatorsByName(string translatorName)
         {
-            return null;
-            //return _context.Translators.Where(t => t.Name == name).ToArray();
+            ResponseGetListTranslatorModel result = await _translatorService.GetList(translatorName);
+            return Ok(result);
         }
 
         [HttpPost]
-        public bool AddTranslator(TranslatorModel translator)
+        public async Task<IActionResult> AddTranslator([FromBody] RequestAddTranslatorModel requestModel)
         {
-            //_context.Translators.Add(translator);
-            //return _context.SaveChanges() > 0;
-            return true;
+            bool result = await _translatorService.Add(requestModel);
+            return Ok(result);
         }
-        
+
         [HttpPost]
-        public string UpdateTranslatorStatus(int Translator, string newStatus = "")
+        public async Task<IActionResult> UpdateTranslatorStatus([FromBody] RequestUpdateStatusTranslatorModel requestModel)
         {
-            _logger.LogInformation("User status update request: " + newStatus + " for user " + Translator.ToString());
-            if (TranslatorStatuses.Where(status => status == newStatus).Count() == 0)
-            {
-                throw new ArgumentException("unknown status");
-            }
-
-            //var job = _context.Translators.Single(j => j.Id == Translator);
-            //job.Status = newStatus;
-            //_context.SaveChanges();
-
-            return "updated";
+            string result = await _translatorService.UpdateStatus(requestModel);
+            return Ok(result);
         }
+
     }
 }
