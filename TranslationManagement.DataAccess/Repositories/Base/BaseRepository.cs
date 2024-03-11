@@ -14,6 +14,12 @@ namespace TranslationManagement.DataAccess.Repositories.Base
             _entities = context.Set<T>();
         }
 
+        public async Task<T> GetById(int id)
+        {
+            IQueryable<T> request = _entities.Where(item => item.Id == id);
+            return await request.SingleAsync();
+        }
+
         public async Task<int> Insert(T entity)
         {
             _entities.Add(entity);

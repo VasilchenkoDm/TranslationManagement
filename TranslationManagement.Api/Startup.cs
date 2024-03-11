@@ -25,7 +25,7 @@ namespace TranslationManagement.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TranslationManagement.Api", Version = "v1" });
             });
 
-            services.ConfigureBusinessLogic();
+            services.ConfigureBusinessLogic(Configuration);
 
             //services.AddDbContext<AppDbContext>(options => 
             //    options.UseSqlite("Data Source=TranslationAppDatabase.db"));

@@ -3,12 +3,11 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TranslationManagement.Api.Controllers.Base;
 
 namespace TranslationManagement.Api.Controlers
 {
-    [ApiController]
-    [Route("api/TranslatorsManagement/[action]")]
-    public class TranslatorManagementController : ControllerBase
+    public class TranslatorManagementController : BaseApiController
     {
         public class TranslatorModel
         {

@@ -17,3 +17,5 @@ wwwroot_node
 .DS_Store
 .idea
 *.db
+*.db-shm
+*.db-wal

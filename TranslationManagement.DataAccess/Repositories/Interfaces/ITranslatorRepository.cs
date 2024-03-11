@@ -5,5 +5,6 @@ namespace TranslationManagement.DataAccess.Repositories.Interfaces
 {
     public interface ITranslatorRepository : IBaseRepository<Translator>
     {
+        public Task<IEnumerable<Translator>> GetList(string translatorName = default);
     }
 }

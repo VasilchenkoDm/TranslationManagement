@@ -9,12 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TranslationManagement.Api.Controlers;
+using TranslationManagement.Api.Controllers.Base;
 
 namespace TranslationManagement.Api.Controllers
 {
-    [ApiController]
-    [Route("api/jobs/[action]")]
-    public class TranslationJobController : ControllerBase
+    public class TranslationJobController : BaseApiController
     {
         public class TranslationJob
         {

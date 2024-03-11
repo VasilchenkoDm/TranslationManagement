@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Data;
 using TranslationManagement.DataAccess.Repositories;
@@ -8,18 +9,19 @@ namespace TranslationManagement.DataAccess
 {
     public static class Startup
     {
-        public static void ConfigureDataAccess(this IServiceCollection services)
+        public static void ConfigureDataAccess(this IServiceCollection services, IConfiguration configuration)
         {
-            AddDbContext(services);
+            AddDbContext(services, configuration);
             RegisterDependencies(services);
             // automatic startup database migration
             MigrateDatabase(services);
         }
 
-        private static void AddDbContext(IServiceCollection services)
+        private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
         {
+            var connectionString = configuration.GetConnectionString("TranslationManagementDatabase");
             services.AddDbContext<ApplicationDbContext>(options => 
-                options.UseSqlite("Data Source=TranslationAppDatabase.db"));
+                options.UseSqlite(connectionString));
         }
 
         private static void RegisterDependencies(IServiceCollection services)
