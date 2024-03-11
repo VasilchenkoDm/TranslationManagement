@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TranslationManagement.Api.Migrations
+#nullable disable
+
+namespace TranslationManagement.DataAccess.Migrations
 {
     public partial class InitialCreate : Migration
     {
