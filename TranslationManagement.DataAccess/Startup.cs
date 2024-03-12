@@ -13,7 +13,7 @@ namespace TranslationManagement.DataAccess
         {
             AddDbContext(services, configuration);
             RegisterDependencies(services);
-            MigrateDatabase(services);
+            //MigrateDatabase(services);
         }
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

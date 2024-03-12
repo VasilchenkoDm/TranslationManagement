@@ -9,5 +9,6 @@ namespace TranslationManagement.DataAccess.Entities
         public string HourlyRate { get; set; }
         public TranslatorStatusEnum Status { get; set; }
         public string CreditCardNumber { get; set; }
+        public ICollection<TranslationJob> TranslationJobs { get; set; }
     }
 }

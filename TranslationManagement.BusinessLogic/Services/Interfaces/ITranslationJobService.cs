@@ -8,5 +8,6 @@ namespace TranslationManagement.BusinessLogic.Services.Interfaces
         Task Add(RequestAddTranslationJobModel requestModel);
         Task AddWithFile(RequestAddWithFileTranslationJobModel requestModel);
         Task UpdateStatus(RequestUpdateStatusTranslationJobModel requestModel);
+        Task Assign(RequestAssignTranslationJobModel requestModel);
     }
 }

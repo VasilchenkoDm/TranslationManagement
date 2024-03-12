@@ -10,5 +10,7 @@ namespace TranslationManagement.DataAccess.Entities
         public string OriginalContent { get; set; }
         public string TranslatedContent { get; set; }
         public decimal Price { get; set; }
+        public int? TranslatorId { get; set; }
+        public Translator? Translator { get; set; }
     }
 }

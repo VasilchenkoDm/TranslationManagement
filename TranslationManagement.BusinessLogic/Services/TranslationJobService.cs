@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using External.ThirdParty.Services;
 using Microsoft.Extensions.Logging;
-using System.Xml.Linq;
 using TranslationManagement.BusinessLogic.Services.Interfaces;
 using TranslationManagement.BusinessLogic.Utilities.TranslationJobFileReader;
 using TranslationManagement.BusinessLogic.Utilities.TranslationJobFileReader.Interfaces;
@@ -19,16 +18,18 @@ namespace TranslationManagement.BusinessLogic.Services
         private readonly IMapper _mapper;
         private readonly ILogger<TranslationJobService> _logger;
         private readonly ITranslationJobRepository _translationJobRepository;
+        private readonly ITranslatorRepository _translatorRepository;
         private readonly INotificationService _notificationService;
         private readonly ITranslationJobFileReader _translationJobFileReader;
 
         public TranslationJobService(IMapper mapper, ILogger<TranslationJobService> logger, 
-            ITranslationJobRepository translationJobRepository, INotificationService notificationService, 
-            ITranslationJobFileReader translationJobFileReader)
+            ITranslationJobRepository translationJobRepository, ITranslatorRepository translatorRepository, 
+            INotificationService notificationService, ITranslationJobFileReader translationJobFileReader)
         {
             _mapper = mapper;
             _logger = logger;
             _translationJobRepository = translationJobRepository;
+            _translatorRepository = translatorRepository;
             _notificationService = notificationService;
             _translationJobFileReader = translationJobFileReader;
         }
@@ -97,6 +98,26 @@ namespace TranslationManagement.BusinessLogic.Services
         {
             return contentLength * TranslationJobConstants.PricePerCharacter;
         }
-       
+
+        public async Task Assign(RequestAssignTranslationJobModel requestModel)
+        {
+            TranslationJob translationJob = await _translationJobRepository.GetById(requestModel.Id);
+            if (translationJob is null)
+            {
+                throw new KeyNotFoundException("translation job not found");
+            }
+            Translator translator = await _translatorRepository.GetById(requestModel.Id);
+            if (translator is null)
+            {
+                throw new KeyNotFoundException("translator not found");
+            }
+            if (translator.Status != TranslatorStatusEnum.Certified)
+            {
+                throw new ArgumentException("only Certified translators can work on jobs");
+            }
+            translationJob.TranslatorId = requestModel.TranslatorId;
+            await _translationJobRepository.Update(translationJob);
+        }
+
     }
 }

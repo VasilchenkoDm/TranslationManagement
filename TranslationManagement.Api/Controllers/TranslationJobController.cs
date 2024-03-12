@@ -43,5 +43,12 @@ namespace TranslationManagement.Api.Controllers
             return NoContent();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AssignJob([FromBody] RequestAssignTranslationJobModel requestModel)
+        {
+            await _translationJobService.Assign(requestModel);
+            return NoContent();
+        }
+
     }
 }
