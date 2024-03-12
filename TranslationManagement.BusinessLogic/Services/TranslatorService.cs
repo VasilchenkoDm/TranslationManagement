@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using TranslationManagement.BusinessLogic.Services.Interfaces;
 using TranslationManagement.DataAccess.Entities;
 using TranslationManagement.DataAccess.Repositories.Interfaces;
@@ -11,10 +12,13 @@ namespace TranslationManagement.BusinessLogic.Services
     {
         private readonly IMapper _mapper;
         private readonly ITranslatorRepository _translatorRepository;
+        private readonly ILogger<TranslatorService> _logger;
 
-        public TranslatorService(IMapper mapper, ITranslatorRepository translatorRepository)
+        public TranslatorService(IMapper mapper, ILogger<TranslatorService> logger, 
+            ITranslatorRepository translatorRepository)
         {
             _mapper = mapper;
+            _logger = logger;
             _translatorRepository = translatorRepository;
         }
 
@@ -34,6 +38,7 @@ namespace TranslationManagement.BusinessLogic.Services
 
         public async Task<string> UpdateStatus(RequestUpdateStatusTranslatorModel requestModel)
         {
+            _logger.LogInformation($"User status update request: {requestModel.Status} for user {requestModel.Id}");
             if (!Enum.TryParse(requestModel.Status, out TranslatorStatusEnum translatorStatus))
             {
                 throw new ArgumentException("unknown status");

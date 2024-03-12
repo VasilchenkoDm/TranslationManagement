@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using External.ThirdParty.Services;
+using Microsoft.Extensions.Logging;
 using System.Xml.Linq;
 using TranslationManagement.BusinessLogic.Services.Interfaces;
 using TranslationManagement.BusinessLogic.Utilities.TranslationJobFileReader;
@@ -16,14 +17,17 @@ namespace TranslationManagement.BusinessLogic.Services
     public class TranslationJobService : ITranslationJobService
     {
         private readonly IMapper _mapper;
+        private readonly ILogger<TranslationJobService> _logger;
         private readonly ITranslationJobRepository _translationJobRepository;
         private readonly INotificationService _notificationService;
         private readonly ITranslationJobFileReader _translationJobFileReader;
 
-        public TranslationJobService(IMapper mapper, ITranslationJobRepository translationJobRepository, 
-            INotificationService notificationService, ITranslationJobFileReader translationJobFileReader)
+        public TranslationJobService(IMapper mapper, ILogger<TranslationJobService> logger, 
+            ITranslationJobRepository translationJobRepository, INotificationService notificationService, 
+            ITranslationJobFileReader translationJobFileReader)
         {
             _mapper = mapper;
+            _logger = logger;
             _translationJobRepository = translationJobRepository;
             _notificationService = notificationService;
             _translationJobFileReader = translationJobFileReader;
@@ -50,9 +54,7 @@ namespace TranslationManagement.BusinessLogic.Services
                 while (!_notificationService.SendNotification("Job created: " + translationJobId).Result)
                 {
                 }
-
-                //where log? 
-                //_logger.LogInformation("New job notification sent");
+                _logger.LogInformation("New job notification sent");
             }
             return success;
         }
@@ -70,6 +72,7 @@ namespace TranslationManagement.BusinessLogic.Services
 
         public async Task<string> UpdateStatus(RequestUpdateStatusTranslationJobModel requestModel)
         {
+            _logger.LogInformation($"Job status update request received: {requestModel.Status} for job {requestModel.Id} by translator {requestModel.TranslatorId}");
             if (!Enum.TryParse(requestModel.Status, out TranslationJobStatusEnum translationJobStatus))
             {
                 throw new ArgumentException("invalid status");
