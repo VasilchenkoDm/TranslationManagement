@@ -9,6 +9,6 @@ namespace TranslationManagement.DataAccess.Entities
         public TranslationJobStatusEnum Status { get; set; }
         public string OriginalContent { get; set; }
         public string TranslatedContent { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

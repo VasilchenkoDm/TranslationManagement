@@ -2,6 +2,6 @@
 {
     public static class TranslationJobConstants
     {
-        public const double PricePerCharacter = 0.01;
+        public const decimal PricePerCharacter = 0.01m;
     }
 }

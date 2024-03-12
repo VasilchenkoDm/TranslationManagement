@@ -40,7 +40,7 @@ namespace TranslationManagement.BusinessLogic.Services
         {
             var translationJob = _mapper.Map<RequestAddTranslationJobModel, TranslationJob>(requestModel);
             translationJob.Status = TranslationJobStatusEnum.New;
-            SetPrice(translationJob);
+            translationJob.Price = CalculatePrice(translationJob.OriginalContent.Length);
 
             int translationJobId = await _translationJobRepository.Insert(translationJob);
 
@@ -95,9 +95,9 @@ namespace TranslationManagement.BusinessLogic.Services
             return isStatusValid;
         }
 
-        private void SetPrice(TranslationJob job)
+        private decimal CalculatePrice(int contentLength)
         {
-            job.Price = job.OriginalContent.Length * TranslationJobConstants.PricePerCharacter;
+            return contentLength * TranslationJobConstants.PricePerCharacter;
         }
        
     }

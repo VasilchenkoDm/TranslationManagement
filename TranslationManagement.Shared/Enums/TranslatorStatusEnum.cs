@@ -2,8 +2,8 @@
 {
     public enum TranslatorStatusEnum
     {
-        Applicant = 1,
-        Certified = 2,
-        Deleted = 3
+        Applicant = 0,
+        Certified = 1,
+        Deleted = 2
     }
 }

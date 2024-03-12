@@ -2,8 +2,8 @@
 {
     public enum TranslationJobStatusEnum
     {
-        New = 1,
-        Inprogress = 2,
-        Completed = 3
+        New = 0,
+        Inprogress = 1,
+        Completed = 2
     }
 }
