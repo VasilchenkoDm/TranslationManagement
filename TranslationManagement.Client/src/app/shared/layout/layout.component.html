@@ -1,0 +1,44 @@
+<div class="navbar-container" [class.example-is-mobile]="mobileQuery.matches">
+    <mat-toolbar class="navbar">
+
+        <a class="navbar-brand">
+            <img src="/assets/img/png/logo.png" alt="" [routerLink]="['/']">
+            <div mat-icon-button class="menu" (click)="snav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </div>
+        </a>
+
+    </mat-toolbar>
+
+    <mat-sidenav-container class="navbar-sidenav-container">
+        <mat-sidenav #snav [opened]="!mobileQuery.matches" [mode]="mobileQuery.matches ? 'over' : 'side'"
+            [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" class="sidenav">
+            <mat-nav-list class="navbar-list">
+
+                <mat-expansion-panel hideToggle class="custom-panel" [expanded]="true">
+                    <mat-expansion-panel-header class="menu-item">
+                        <div class="menu-title">
+                            <div class="icon"> <img src="../../../assets/img/svg/tasks.svg" alt=""
+                                    class="link-icon">
+                            </div>
+                            <p>Job</p>
+                        </div>
+                        <div class=""></div>
+                        <mat-icon matSuffix class="plus">add</mat-icon>
+                        <mat-icon matSuffix class="remove">remove</mat-icon>
+                    </mat-expansion-panel-header>
+                    <a [routerLink]="['/translation-job/list']" class="custom-link">List</a>
+                </mat-expansion-panel>                
+
+            </mat-nav-list>
+
+        </mat-sidenav>
+
+        <mat-sidenav-content class="sidenav-content">
+            <div class="container">
+                <router-outlet></router-outlet>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+
+</div>
