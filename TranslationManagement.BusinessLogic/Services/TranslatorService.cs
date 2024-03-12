@@ -2,6 +2,7 @@
 using TranslationManagement.BusinessLogic.Services.Interfaces;
 using TranslationManagement.DataAccess.Entities;
 using TranslationManagement.DataAccess.Repositories.Interfaces;
+using TranslationManagement.Shared.Enums;
 using TranslationManagement.ViewModels.Translator;
 
 namespace TranslationManagement.BusinessLogic.Services
@@ -16,8 +17,6 @@ namespace TranslationManagement.BusinessLogic.Services
             _mapper = mapper;
             _translatorRepository = translatorRepository;
         }
-
-        public static readonly string[] TranslatorStatuses = { "Applicant", "Certified", "Deleted" };
 
         public async Task<ResponseGetListTranslatorModel> GetList(string translatorName = default)
         {
@@ -35,13 +34,16 @@ namespace TranslationManagement.BusinessLogic.Services
 
         public async Task<string> UpdateStatus(RequestUpdateStatusTranslatorModel requestModel)
         {
-            if (TranslatorStatuses.Where(status => status == requestModel.Status).Count() == 0)
+            if (!Enum.TryParse(requestModel.Status, out TranslatorStatusEnum translatorStatus))
             {
                 throw new ArgumentException("unknown status");
             }
             Translator translator = await _translatorRepository.GetById(requestModel.Id);
-            //translator is null? 
-            translator.Status = requestModel.Status;
+            if (translator is null)  
+            {
+                throw new KeyNotFoundException("translator not found");
+            }
+            translator.Status = translatorStatus;
             await _translatorRepository.Update(translator);
             return "updated";
         }

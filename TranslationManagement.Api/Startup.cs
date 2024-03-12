@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
 using TranslationManagement.BusinessLogic;
 
 namespace TranslationManagement.Api
@@ -26,9 +25,6 @@ namespace TranslationManagement.Api
             });
 
             services.ConfigureBusinessLogic(Configuration);
-
-            //services.AddDbContext<AppDbContext>(options => 
-            //    options.UseSqlite("Data Source=TranslationAppDatabase.db"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

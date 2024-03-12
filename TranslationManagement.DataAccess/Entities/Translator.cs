@@ -1,4 +1,5 @@
 ﻿using TranslationManagement.DataAccess.Entities.Base;
+using TranslationManagement.Shared.Enums;
 
 namespace TranslationManagement.DataAccess.Entities
 {
@@ -6,7 +7,7 @@ namespace TranslationManagement.DataAccess.Entities
     {
         public string Name { get; set; }
         public string HourlyRate { get; set; }
-        public string Status { get; set; }
+        public TranslatorStatusEnum Status { get; set; }
         public string CreditCardNumber { get; set; }
     }
 }

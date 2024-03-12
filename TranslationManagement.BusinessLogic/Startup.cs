@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using External.ThirdParty.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using TranslationManagement.BusinessLogic.Services;
 using TranslationManagement.BusinessLogic.Services.Interfaces;
+using TranslationManagement.BusinessLogic.Utilities.TranslationJobFileReader;
+using TranslationManagement.BusinessLogic.Utilities.TranslationJobFileReader.Interfaces;
 using TranslationManagement.DataAccess;
 
 namespace TranslationManagement.BusinessLogic
@@ -19,6 +22,9 @@ namespace TranslationManagement.BusinessLogic
 
         private static void AddDependecies(IServiceCollection services)
         {
+            services.AddScoped<INotificationService, UnreliableNotificationService>();
+            services.AddScoped<ITranslationJobFileReader, TranslationJobFileReader>();
+
             services.AddScoped<ITranslatorService, TranslatorService>();
             services.AddScoped<ITranslationJobService, TranslationJobService>();
         }

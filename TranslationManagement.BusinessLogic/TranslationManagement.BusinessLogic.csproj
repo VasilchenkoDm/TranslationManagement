@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\External.ThirdParty.Services\External.ThirdParty.Services.csproj" />
     <ProjectReference Include="..\TranslationManagement.DataAccess\TranslationManagement.DataAccess.csproj" />
+    <ProjectReference Include="..\TranslationManagement.Shared\TranslationManagement.Shared.csproj" />
     <ProjectReference Include="..\TranslationManagement.ViewModels\TranslationManagement.ViewModels.csproj" />
   </ItemGroup>
 

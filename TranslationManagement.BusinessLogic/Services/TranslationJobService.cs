@@ -2,11 +2,14 @@
 using External.ThirdParty.Services;
 using System.Xml.Linq;
 using TranslationManagement.BusinessLogic.Services.Interfaces;
+using TranslationManagement.BusinessLogic.Utilities.TranslationJobFileReader;
+using TranslationManagement.BusinessLogic.Utilities.TranslationJobFileReader.Interfaces;
 using TranslationManagement.DataAccess.Entities;
 using TranslationManagement.DataAccess.Repositories;
 using TranslationManagement.DataAccess.Repositories.Interfaces;
+using TranslationManagement.Shared.Constants;
+using TranslationManagement.Shared.Enums;
 using TranslationManagement.ViewModels.TranslationJob;
-using TranslationManagement.ViewModels.Translator;
 
 namespace TranslationManagement.BusinessLogic.Services
 {
@@ -14,11 +17,16 @@ namespace TranslationManagement.BusinessLogic.Services
     {
         private readonly IMapper _mapper;
         private readonly ITranslationJobRepository _translationJobRepository;
+        private readonly INotificationService _notificationService;
+        private readonly ITranslationJobFileReader _translationJobFileReader;
 
-        public TranslationJobService(IMapper mapper, ITranslationJobRepository translationJobRepository)
+        public TranslationJobService(IMapper mapper, ITranslationJobRepository translationJobRepository, 
+            INotificationService notificationService, ITranslationJobFileReader translationJobFileReader)
         {
             _mapper = mapper;
             _translationJobRepository = translationJobRepository;
+            _notificationService = notificationService;
+            _translationJobFileReader = translationJobFileReader;
         }
 
         public async Task<ResponseGetListTranslationJobModel> GetList()
@@ -31,7 +39,7 @@ namespace TranslationManagement.BusinessLogic.Services
         public async Task<bool> Add(RequestAddTranslationJobModel requestModel)
         {
             var translationJob = _mapper.Map<RequestAddTranslationJobModel, TranslationJob>(requestModel);
-            translationJob.Status = "New";
+            translationJob.Status = TranslationJobStatusEnum.New;
             SetPrice(translationJob);
 
             int translationJobId = await _translationJobRepository.Insert(translationJob);
@@ -39,8 +47,7 @@ namespace TranslationManagement.BusinessLogic.Services
             bool success = translationJobId > 0;
             if (success)
             {
-                var notificationSvc = new UnreliableNotificationService();
-                while (!notificationSvc.SendNotification("Job created: " + translationJobId).Result)
+                while (!_notificationService.SendNotification("Job created: " + translationJobId).Result)
                 {
                 }
 
@@ -52,74 +59,46 @@ namespace TranslationManagement.BusinessLogic.Services
 
         public Task<bool> AddWithFile(RequestAddWithFileTranslationJobModel requestModel)
         {
-            var reader = new StreamReader(requestModel.File.OpenReadStream());
-            string content;
-
-            if (requestModel.File.FileName.EndsWith(".txt"))
-            {
-                content = reader.ReadToEnd();
-            }
-            else if (requestModel.File.FileName.EndsWith(".xml"))
-            {
-                var xdoc = XDocument.Parse(reader.ReadToEnd());
-                content = xdoc.Root.Element("Content").Value;
-                requestModel.CustomerName = xdoc.Root.Element("Customer").Value.Trim();
-            }
-            else
-            {
-                throw new NotSupportedException("unsupported file");
-            }
-
-            var newJob = new RequestAddTranslationJobModel()
-            {
-                OriginalContent = content,
-                TranslatedContent = "",
-                CustomerName = requestModel.CustomerName,
-            };
-
-            //w twice? 
-            //SetPrice(newJob);
-
+            TranslationJobModel translationJob = _translationJobFileReader.ReadFile(requestModel.File);
+            var newJob = new RequestAddTranslationJobModel();
+            newJob.OriginalContent = translationJob.Content;
+            newJob.TranslatedContent = default;
+            newJob.CustomerName = string.IsNullOrEmpty(translationJob.Customer) ? 
+                requestModel.CustomerName : translationJob.Customer;
             return Add(newJob);
-        }
-
-        static class JobStatuses
-        {
-            internal static readonly string New = "New";
-            internal static readonly string Inprogress = "InProgress";
-            internal static readonly string Completed = "Completed";
         }
 
         public async Task<string> UpdateStatus(RequestUpdateStatusTranslationJobModel requestModel)
         {
-            if (typeof(JobStatuses).GetProperties().Count(prop => prop.Name == requestModel.Status) == 0)
+            if (!Enum.TryParse(requestModel.Status, out TranslationJobStatusEnum translationJobStatus))
             {
-                return "invalid status";
+                throw new ArgumentException("invalid status");
             }
-
             TranslationJob translationJob = await _translationJobRepository.GetById(requestModel.Id);
-            //translationJob is null? 
-
-            bool isInvalidStatusChange = (translationJob.Status == JobStatuses.New && requestModel.Status == JobStatuses.Completed) ||
-                                         translationJob.Status == JobStatuses.Completed || requestModel.Status == JobStatuses.New;
-            if (isInvalidStatusChange)
+            if (translationJob is null)
+            {
+                throw new KeyNotFoundException("translation job not found");
+            }
+            if (IsNewStatusValid(translationJobStatus, translationJob.Status))
             {
                 return "invalid status change";
             }
-
-            translationJob.Status = requestModel.Status;
-
+            translationJob.Status = translationJobStatus;
             await _translationJobRepository.Update(translationJob);
-
             return "updated";
         }
 
-        const double PricePerCharacter = 0.01;
-        private void SetPrice(TranslationJob job)
+        private bool IsNewStatusValid(TranslationJobStatusEnum newStatus, TranslationJobStatusEnum oldStatus) 
         {
-            job.Price = job.OriginalContent.Length * PricePerCharacter;
+            bool isStatusValid = (oldStatus == TranslationJobStatusEnum.New && newStatus == TranslationJobStatusEnum.Completed) ||
+                oldStatus == TranslationJobStatusEnum.Completed || newStatus == TranslationJobStatusEnum.New;
+            return isStatusValid;
         }
 
-
+        private void SetPrice(TranslationJob job)
+        {
+            job.Price = job.OriginalContent.Length * TranslationJobConstants.PricePerCharacter;
+        }
+       
     }
 }

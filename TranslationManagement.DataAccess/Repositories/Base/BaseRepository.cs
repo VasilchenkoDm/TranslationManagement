@@ -17,7 +17,7 @@ namespace TranslationManagement.DataAccess.Repositories.Base
         public async Task<T> GetById(int id)
         {
             IQueryable<T> request = _entities.Where(item => item.Id == id);
-            return await request.SingleAsync();
+            return await request.SingleOrDefaultAsync();
         }
 
         public async Task<int> Insert(T entity)
