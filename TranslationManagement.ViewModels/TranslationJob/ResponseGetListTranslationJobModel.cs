@@ -13,5 +13,6 @@
         public string OriginalContent { get; set; }
         public string TranslatedContent { get; set; }
         public double Price { get; set; }
+        public string TranslatorName { get; set; }
     }
 }

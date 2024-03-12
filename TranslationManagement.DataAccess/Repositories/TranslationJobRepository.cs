@@ -13,7 +13,9 @@ namespace TranslationManagement.DataAccess.Repositories
 
         public async Task<IEnumerable<TranslationJob>> GetList()
         {
-            IQueryable<TranslationJob> request = _entities.AsNoTracking();
+            IQueryable<TranslationJob> request = _entities
+                .Include(job => job.Translator)
+                .AsNoTracking();
             return await request.ToListAsync();
         }
 

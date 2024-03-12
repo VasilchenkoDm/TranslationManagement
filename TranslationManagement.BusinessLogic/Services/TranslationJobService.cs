@@ -47,13 +47,10 @@ namespace TranslationManagement.BusinessLogic.Services
             translationJob.Status = TranslationJobStatusEnum.New;
             translationJob.Price = CalculatePrice(translationJob.OriginalContent.Length);
             int translationJobId = await _translationJobRepository.Insert(translationJob);
-            if (translationJobId > 0)
+            while (!_notificationService.SendNotification("Job created: " + translationJobId).Result)
             {
-                while (!_notificationService.SendNotification("Job created: " + translationJobId).Result)
-                {
-                }
-                _logger.LogInformation("New job notification sent");
             }
+            _logger.LogInformation("New job notification sent");
         }
 
         public Task AddWithFile(RequestAddWithFileTranslationJobModel requestModel)
@@ -106,7 +103,7 @@ namespace TranslationManagement.BusinessLogic.Services
             {
                 throw new KeyNotFoundException("translation job not found");
             }
-            Translator translator = await _translatorRepository.GetById(requestModel.Id);
+            Translator translator = await _translatorRepository.GetById(requestModel.TranslatorId);
             if (translator is null)
             {
                 throw new KeyNotFoundException("translator not found");
@@ -115,7 +112,7 @@ namespace TranslationManagement.BusinessLogic.Services
             {
                 throw new ArgumentException("only Certified translators can work on jobs");
             }
-            translationJob.TranslatorId = requestModel.TranslatorId;
+            translationJob.TranslatorId = translator.Id;
             await _translationJobRepository.Update(translationJob);
         }
 

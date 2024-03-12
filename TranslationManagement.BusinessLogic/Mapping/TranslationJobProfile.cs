@@ -8,7 +8,8 @@ namespace TranslationManagement.BusinessLogic.Mapping
     {
         public TranslationJobProfile()
         {
-            CreateMap<TranslationJob, GetListTranslationJobModelItem>();
+            CreateMap<TranslationJob, GetListTranslationJobModelItem>()
+                .ForMember(x => x.TranslatorName, opt => opt.MapFrom(src => src.Translator.Name));
             CreateMap<RequestAddTranslationJobModel, Translator>();
         }
     }
