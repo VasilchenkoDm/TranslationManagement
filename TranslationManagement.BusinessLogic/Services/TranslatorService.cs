@@ -29,14 +29,13 @@ namespace TranslationManagement.BusinessLogic.Services
             return responseModel;
         }
 
-        public async Task<bool> Add(RequestAddTranslatorModel requestModel)
+        public async Task Add(RequestAddTranslatorModel requestModel)
         {
             var translator = _mapper.Map<RequestAddTranslatorModel, Translator>(requestModel);
-            int translatorId = await _translatorRepository.Insert(translator);
-            return translatorId > 0;
+            await _translatorRepository.Insert(translator);
         }
 
-        public async Task<string> UpdateStatus(RequestUpdateStatusTranslatorModel requestModel)
+        public async Task UpdateStatus(RequestUpdateStatusTranslatorModel requestModel)
         {
             _logger.LogInformation($"User status update request: {requestModel.Status} for user {requestModel.Id}");
             if (!Enum.TryParse(requestModel.Status, out TranslatorStatusEnum translatorStatus))
@@ -50,7 +49,6 @@ namespace TranslationManagement.BusinessLogic.Services
             }
             translator.Status = translatorStatus;
             await _translatorRepository.Update(translator);
-            return "updated";
         }
 
     }

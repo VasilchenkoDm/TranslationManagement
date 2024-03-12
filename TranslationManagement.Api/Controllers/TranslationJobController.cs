@@ -25,22 +25,22 @@ namespace TranslationManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateJob([FromBody] RequestAddTranslationJobModel requestModel)
         {
-            bool result = await _translationJobService.Add(requestModel);
-            return Ok(result);
+            await _translationJobService.Add(requestModel);
+            return NoContent();
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateJobWithFile([FromForm] RequestAddWithFileTranslationJobModel requestModel)
         {
-            bool result = await _translationJobService.AddWithFile(requestModel);
-            return Ok(result);
+            await _translationJobService.AddWithFile(requestModel);
+            return NoContent();
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateJobStatus([FromBody] RequestUpdateStatusTranslationJobModel requestModel)
         {
-            string result = await _translationJobService.UpdateStatus(requestModel);
-            return Ok(result);
+            await _translationJobService.UpdateStatus(requestModel);
+            return NoContent();
         }
 
     }

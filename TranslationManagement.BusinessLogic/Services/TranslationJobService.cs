@@ -40,26 +40,22 @@ namespace TranslationManagement.BusinessLogic.Services
             return responseModel;
         }
 
-        public async Task<bool> Add(RequestAddTranslationJobModel requestModel)
+        public async Task Add(RequestAddTranslationJobModel requestModel)
         {
             var translationJob = _mapper.Map<RequestAddTranslationJobModel, TranslationJob>(requestModel);
             translationJob.Status = TranslationJobStatusEnum.New;
             translationJob.Price = CalculatePrice(translationJob.OriginalContent.Length);
-
             int translationJobId = await _translationJobRepository.Insert(translationJob);
-
-            bool success = translationJobId > 0;
-            if (success)
+            if (translationJobId > 0)
             {
                 while (!_notificationService.SendNotification("Job created: " + translationJobId).Result)
                 {
                 }
                 _logger.LogInformation("New job notification sent");
             }
-            return success;
         }
 
-        public Task<bool> AddWithFile(RequestAddWithFileTranslationJobModel requestModel)
+        public Task AddWithFile(RequestAddWithFileTranslationJobModel requestModel)
         {
             TranslationJobModel translationJob = _translationJobFileReader.ReadFile(requestModel.File);
             var newJob = new RequestAddTranslationJobModel();
@@ -70,7 +66,7 @@ namespace TranslationManagement.BusinessLogic.Services
             return Add(newJob);
         }
 
-        public async Task<string> UpdateStatus(RequestUpdateStatusTranslationJobModel requestModel)
+        public async Task UpdateStatus(RequestUpdateStatusTranslationJobModel requestModel)
         {
             _logger.LogInformation($"Job status update request received: {requestModel.Status} for job {requestModel.Id} by translator {requestModel.TranslatorId}");
             if (!Enum.TryParse(requestModel.Status, out TranslationJobStatusEnum translationJobStatus))
@@ -84,11 +80,10 @@ namespace TranslationManagement.BusinessLogic.Services
             }
             if (IsNewStatusValid(translationJobStatus, translationJob.Status))
             {
-                return "invalid status change";
+                throw new ArgumentException("invalid status change");
             }
             translationJob.Status = translationJobStatus;
             await _translationJobRepository.Update(translationJob);
-            return "updated";
         }
 
         private bool IsNewStatusValid(TranslationJobStatusEnum newStatus, TranslationJobStatusEnum oldStatus) 

@@ -33,15 +33,15 @@ namespace TranslationManagement.Api.Controlers
         [HttpPost]
         public async Task<IActionResult> AddTranslator([FromBody] RequestAddTranslatorModel requestModel)
         {
-            bool result = await _translatorService.Add(requestModel);
-            return Ok(result);
+            await _translatorService.Add(requestModel);
+            return NoContent();
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateTranslatorStatus([FromBody] RequestUpdateStatusTranslatorModel requestModel)
         {
-            string result = await _translatorService.UpdateStatus(requestModel);
-            return Ok(result);
+            await _translatorService.UpdateStatus(requestModel);
+            return NoContent();
         }
 
     }
