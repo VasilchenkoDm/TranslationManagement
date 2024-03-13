@@ -42,7 +42,7 @@ export class TranslationJobListComponent implements OnInit {
 
     public assignJob(jobId: number): void {        
         const dialogRef = this.dialog.open(TranslationJobAssignComponent, {
-            width: '60%',
+            width: '30%',
             data: jobId,
             autoFocus: false
         });

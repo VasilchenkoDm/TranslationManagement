@@ -11,7 +11,7 @@ export const translatorReducer: ActionReducer<TranslatorState, Action> =
     createReducer(
         initialState,
         on(
-            translatorActions.getTranslatorsSuccess,
+            translatorActions.getTranslatorsByStatusSuccess,
             (state: TranslatorState, data: ResponseGetListTranslatorModel) => ({
                 ...state,
                 translators: data

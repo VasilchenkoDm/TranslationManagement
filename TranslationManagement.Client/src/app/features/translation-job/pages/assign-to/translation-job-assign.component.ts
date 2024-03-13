@@ -8,6 +8,7 @@ import { filter } from "rxjs";
 import { BaseDropdownModelItem } from "../../../../core/models/base";
 import { GetListTranslatorModelItem } from "../../../../core/models/translator";
 import { RequestAssignTranslationJobModel } from "../../../../core/models/translation-job";
+import { TranslatorStatusEnum } from "../../../../core/enums";
 
 @Component({
     selector: 'app-translation-job-assign',
@@ -52,8 +53,9 @@ export class TranslationJobAssignComponent implements OnInit {
         });
     }
 
-    private getTranslators(): void { 
-        this.store$.dispatch(translatorAction.getTranslators());
+    private getTranslators(): void {      
+        const certifiedTranslatorStatus = TranslatorStatusEnum[TranslatorStatusEnum.Certified];
+        this.store$.dispatch(translatorAction.getTranslatorsByStatus({ status: certifiedTranslatorStatus }));
         const translators$ = this.store$.select(translatorSelector.translatorsData);
         translators$.pipe(filter((res) => res !== undefined)).subscribe((res) => {            
             this.translatorsDropDownData = res?.items?.map((val: GetListTranslatorModelItem): BaseDropdownModelItem<number> => ({

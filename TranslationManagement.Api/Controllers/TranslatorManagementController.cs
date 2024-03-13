@@ -30,6 +30,13 @@ namespace TranslationManagement.Api.Controlers
             return Ok(result);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetTranslatorsByStatus(string translatorStatus)
+        {
+            ResponseGetListTranslatorModel result = await _translatorService.GetList(string.Empty, translatorStatus);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddTranslator([FromBody] RequestAddTranslatorModel requestModel)
         {

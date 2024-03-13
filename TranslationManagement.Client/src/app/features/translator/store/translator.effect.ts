@@ -14,14 +14,14 @@ export class TranslatorEffects {
     ) {
     }
 
-    getTranslators$ = createEffect(() =>
+    getTranslatorsByStatus$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(translatorActions.getTranslators),
+            ofType(translatorActions.getTranslatorsByStatus),
 
-            switchMap(() => {
-                return this.translatorService.getTranslators().pipe(
+            switchMap((action) => {
+                return this.translatorService.getTranslatorsByStatus(action.status).pipe(
                     map((data: ResponseGetListTranslatorModel) => {
-                        return translatorActions.getTranslatorsSuccess(data);
+                        return translatorActions.getTranslatorsByStatusSuccess(data);
                     }),
                     catchError((error) => {
                         return of(

@@ -2,6 +2,7 @@
 using TranslationManagement.DataAccess.Entities;
 using TranslationManagement.DataAccess.Repositories.Base;
 using TranslationManagement.DataAccess.Repositories.Interfaces;
+using TranslationManagement.Shared.Enums;
 
 namespace TranslationManagement.DataAccess.Repositories
 {
@@ -11,13 +12,17 @@ namespace TranslationManagement.DataAccess.Repositories
         {
         }
 
-        public async Task<IEnumerable<Translator>> GetList(string translatorName)
+        public async Task<IEnumerable<Translator>> GetList(string name = "", string status = "")
         {
             IQueryable<Translator> request = _entities.AsNoTracking();
 
-            if (!string.IsNullOrWhiteSpace(translatorName))
+            if (!string.IsNullOrWhiteSpace(name))
             {
-                request = request.Where(translator => translator.Name.ToUpper() == translatorName.ToUpper());
+                request = request.Where(translator => translator.Name.ToUpper() == name.ToUpper());
+            }
+            if (Enum.TryParse(status, out TranslatorStatusEnum translatorStatus)) 
+            {
+                request = request.Where(translator => translator.Status == translatorStatus);
             }
 
             return await request.ToListAsync();

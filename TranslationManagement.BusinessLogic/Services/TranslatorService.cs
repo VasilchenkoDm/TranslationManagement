@@ -23,9 +23,9 @@ namespace TranslationManagement.BusinessLogic.Services
             _translatorRepository = translatorRepository;
         }
 
-        public async Task<ResponseGetListTranslatorModel> GetList(string translatorName = default)
+        public async Task<ResponseGetListTranslatorModel> GetList(string translatorName = "", string translatorStatus = "")
         {
-            IEnumerable<Translator> translators = await _translatorRepository.GetList(translatorName);
+            IEnumerable<Translator> translators = await _translatorRepository.GetList(translatorName, translatorStatus);
             var responseModel = new ResponseGetListTranslatorModel();
             responseModel.Items = _mapper.Map<IEnumerable<GetListTranslatorModelItem>>(translators);
             return responseModel;

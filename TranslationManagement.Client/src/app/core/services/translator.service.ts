@@ -12,7 +12,9 @@ export class TranslatorService {
     constructor(private httpClient: HttpClient) {
     }
 
-    getTranslators(): Observable<ResponseGetListTranslatorModel> {
-        return this.httpClient.get<ResponseGetListTranslatorModel>(ApiEndpointHelper.get(ApiEndpointsConstants.TRANSLATOR_GET_TRANSLATORS));
+    getTranslatorsByStatus(status: string): Observable<ResponseGetListTranslatorModel> {
+        return this.httpClient.get<ResponseGetListTranslatorModel>(
+            `${ApiEndpointHelper.get(ApiEndpointsConstants.TRANSLATOR_GET_TRANSLATORS_BY_STATUS)}?translatorStatus=${status}`
+          );
     }
 }
