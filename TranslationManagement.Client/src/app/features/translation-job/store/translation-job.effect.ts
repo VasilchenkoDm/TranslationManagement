@@ -57,6 +57,27 @@ export class TranslationJobEffects {
         )
     );
 
+    createWithFileTranslationJob$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(translationJobActions.translationJobCreateWithFile),
+            switchMap((action) => {
+                return this.translationJobService.createWithFile(action).pipe(
+                    map(() => {
+                        return translationJobActions.getTranslationJobs();
+                    }),
+                    catchError((error) => {
+                        return of(
+                            errorActions.errorAction({
+                                error: JSON.stringify(error),
+                                isApiError: true
+                            })
+                        );
+                    })
+                );
+            })
+        )
+    );
+
     assignTranslationJob$ = createEffect(() =>
         this.actions$.pipe(
             ofType(translationJobActions.translationJobAssign),

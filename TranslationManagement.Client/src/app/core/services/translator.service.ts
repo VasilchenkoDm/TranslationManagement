@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ResponseGetListTranslatorModel } from "../models/translator";
 import { ApiEndpointHelper } from "../helpers/api-endpoint.helper";
-import { ApiEndpointsConstants } from "../constants/api-endpoints.constants";
+import { ApiEndpointsConstants } from "../constants";
 
 @Injectable({
     providedIn: 'root'

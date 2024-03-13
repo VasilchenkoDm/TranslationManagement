@@ -59,7 +59,7 @@ namespace TranslationManagement.BusinessLogic.Services
             TranslationJobModel translationJob = _translationJobFileReader.ReadFile(requestModel.File);
             var newJob = new RequestCreateTranslationJobModel();
             newJob.OriginalContent = translationJob.Content;
-            newJob.CustomerName = string.IsNullOrEmpty(translationJob.Customer) ? 
+            newJob.CustomerName = string.IsNullOrEmpty(translationJob.Customer) ?
                 requestModel.CustomerName : translationJob.Customer;
             return Create(newJob);
         }

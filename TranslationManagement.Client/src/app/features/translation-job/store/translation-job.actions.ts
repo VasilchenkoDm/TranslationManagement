@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { RequestAssignTranslationJobModel, RequestCreateTranslationJobModel, ResponseGetListTranslationJobModel } from "../../../core/models/translation-job";
+import { RequestAssignTranslationJobModel, RequestCreateTranslationJobModel, RequestCreateWithFileTranslationJobModel, ResponseGetListTranslationJobModel } from "../../../core/models/translation-job";
 
 const GET_JOBS = '[TRANSLATION_JOBS] [API] get translation jobs';
 export const getTranslationJobs = createAction(
@@ -21,6 +21,17 @@ export const translationJobCreate = createAction(
 const CREATE_JOB_SUCCESS = '[TRANSLATION_JOBS] [API] translation job create success';
 export const translationJobCreateSuccess = createAction(
     CREATE_JOB_SUCCESS
+);
+
+const CREATE_JOB_WITH_FILE = '[TRANSLATION_JOBS] [API] translation job create with file';
+export const translationJobCreateWithFile = createAction(
+    CREATE_JOB_WITH_FILE,
+    props<RequestCreateWithFileTranslationJobModel>()
+);
+
+const CREATE_JOB_WITH_FILE_SUCCESS = '[TRANSLATION_JOBS] [API] translation job create  with file success';
+export const translationJobCreateWithFileSuccess = createAction(
+    CREATE_JOB_WITH_FILE_SUCCESS
 );
 
 const ASSIGN_JOB = '[TRANSLATION_JOBS] [API] translation job assign';

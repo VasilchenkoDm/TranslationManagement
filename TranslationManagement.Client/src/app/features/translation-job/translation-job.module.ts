@@ -4,6 +4,7 @@ import { TranslationJobRoutingModule } from "./translation-job-routing.module";
 import { SharedModule } from "../../shared/shared.module";
 import { TranslationJobCreateComponent } from "./pages/create/translation-job-create.component";
 import { TranslationJobAssignComponent } from "./pages/assign-to/translation-job-assign.component";
+import { TranslationJobCreateWithFileComponent } from "./pages/create-with-file/translation-job-create-with-file.component";
 
 @NgModule({
     imports: [
@@ -13,7 +14,8 @@ import { TranslationJobAssignComponent } from "./pages/assign-to/translation-job
     declarations: [
         TranslationJobListComponent,
         TranslationJobCreateComponent,
-        TranslationJobAssignComponent
+        TranslationJobAssignComponent,
+        TranslationJobCreateWithFileComponent
     ]
 })
 export class TranslationJobModule { }

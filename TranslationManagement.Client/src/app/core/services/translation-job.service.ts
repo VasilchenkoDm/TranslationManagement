@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ApiEndpointsConstants } from "../constants/api-endpoints.constants";
 import { ApiEndpointHelper } from "../helpers/api-endpoint.helper";
-import { RequestAssignTranslationJobModel, RequestCreateTranslationJobModel, ResponseGetListTranslationJobModel } from "../models/translation-job";
+import { RequestAssignTranslationJobModel, RequestCreateTranslationJobModel, RequestCreateWithFileTranslationJobModel, ResponseGetListTranslationJobModel } from "../models/translation-job";
+import { ApiEndpointsConstants } from "../constants";
 
 @Injectable({
     providedIn: 'root'
@@ -22,10 +22,27 @@ export class TranslationJobService {
         );
     }
 
+    createWithFile(model: RequestCreateWithFileTranslationJobModel): Observable<any> {        
+        const formData = this.getFormData(model);
+        return this.httpClient.post(
+            ApiEndpointHelper.get(ApiEndpointsConstants.TRANSLATION_JOB_CREATE_WITH_FILE), formData
+        );
+    }
+
     assign(model: RequestAssignTranslationJobModel): Observable<any> {
         return this.httpClient.post(
             ApiEndpointHelper.get(ApiEndpointsConstants.TRANSLATION_JOB_ASSIGN), model
         );
+    }
+
+    private getFormData(model: any): FormData {
+        const formData = new FormData();
+        Object.keys(model).forEach((item: string) => {
+            const value = model[item];
+            const prop = item;
+            formData.append(prop, value);
+        });
+        return formData;
     }
 
 }
