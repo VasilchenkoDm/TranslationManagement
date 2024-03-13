@@ -6,7 +6,7 @@ const appRoutes: Routes = [
     {
         path: 'translation-job',
         resolve: { data: TranslationJobsResolver },
-        loadChildren: () => import('./translation-job/translation-job.module').then(module => module.TranslationJobModule)
+        loadChildren: () => import('./features/translation-job/translation-job.module').then(module => module.TranslationJobModule)
     },
     {
         path: '**',

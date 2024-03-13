@@ -1,0 +1,30 @@
+.assign-job {
+    max-height: 600px;
+    overflow: auto;
+    padding: 20px;
+}
+
+.form-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.main-title {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.input-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.custom-input {
+    display: contents;
+    &.mat-focused {
+        .date {
+            color: #3f51b5;
+        }
+    }
+}

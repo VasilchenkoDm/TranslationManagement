@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { TranslationJobListComponent } from "./pages/list/translation-job-list.component";
-import { LayoutComponent } from "../shared/layout/layout.component";
+import { LayoutComponent } from "../../shared/layout/layout.component";
 
 const routes: Routes = [
     {

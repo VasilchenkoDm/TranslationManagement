@@ -1,0 +1,26 @@
+<div class="assign-job">
+    <div class="main-title title">Assign To</div>
+    <form [formGroup]="assignTranslationJobForm">
+        <div class="card">
+            <div class="form-field-wrapper">                
+
+                <mat-form-field appearance="outline" class="custom-input">
+                    <mat-label>Translator</mat-label>
+                    <mat-select formControlName="translatorId">
+                        <mat-option *ngFor="let translator of translatorsDropDownData" [value]="translator.id">
+                            {{ translator.label }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+        </div>
+
+    </form>
+    <div class="form-button-container">
+        <div class="control-btn">
+            <button mat-flat-button class="cancel" (click)="onCancel()">Cancel</button>
+            <button mat-flat-button class="blue" color="primary" (click)="onSubmit()">Submit</button>
+        </div>
+    </div>
+</div>

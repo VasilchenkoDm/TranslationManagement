@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { RequestCreateTranslationJobModel, ResponseGetListTranslationJobModel } from "../../core/models/translation-job";
+import { RequestAssignTranslationJobModel, RequestCreateTranslationJobModel, ResponseGetListTranslationJobModel } from "../../../core/models/translation-job";
 
 const GET_JOBS = '[TRANSLATION_JOBS] [API] get translation jobs';
 export const getTranslationJobs = createAction(
@@ -21,4 +21,15 @@ export const translationJobCreate = createAction(
 const CREATE_JOB_SUCCESS = '[TRANSLATION_JOBS] [API] translation job create success';
 export const translationJobCreateSuccess = createAction(
     CREATE_JOB_SUCCESS
+);
+
+const ASSIGN_JOB = '[TRANSLATION_JOBS] [API] translation job assign';
+export const translationJobAssign = createAction(
+    ASSIGN_JOB,
+    props<RequestAssignTranslationJobModel>()
+);
+
+const ASSIGN_JOB_SUCCESS = '[TRANSLATION_JOBS] [API] translation job assign success';
+export const translationJobAssignSuccess = createAction(
+    ASSIGN_JOB_SUCCESS
 );

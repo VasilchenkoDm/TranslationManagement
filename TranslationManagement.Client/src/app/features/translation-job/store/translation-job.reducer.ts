@@ -1,7 +1,7 @@
 import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 import { TranslationJobsState } from ".";
 import * as translationJobActions from './translation-job.actions';
-import { ResponseGetListTranslationJobModel } from "../../core/models/translation-job";
+import { ResponseGetListTranslationJobModel } from "../../../core/models/translation-job";
 
 const initialState: TranslationJobsState = {
     translationJobs: undefined

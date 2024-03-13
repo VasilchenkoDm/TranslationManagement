@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ApiEndpointsConstants } from "../constants/api-endpoints.constants";
 import { ApiEndpointHelper } from "../helpers/api-endpoint.helper";
-import { RequestCreateTranslationJobModel, ResponseGetListTranslationJobModel } from "../models/translation-job";
+import { RequestAssignTranslationJobModel, RequestCreateTranslationJobModel, ResponseGetListTranslationJobModel } from "../models/translation-job";
 
 @Injectable({
     providedIn: 'root'
@@ -21,4 +21,11 @@ export class TranslationJobService {
             ApiEndpointHelper.get(ApiEndpointsConstants.TRANSLATION_JOB_CREATE), model
         );
     }
+
+    assign(model: RequestAssignTranslationJobModel): Observable<any> {
+        return this.httpClient.post(
+            ApiEndpointHelper.get(ApiEndpointsConstants.TRANSLATION_JOB_ASSIGN), model
+        );
+    }
+
 }

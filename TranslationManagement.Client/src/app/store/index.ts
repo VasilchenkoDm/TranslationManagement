@@ -1,5 +1,6 @@
 export enum ReducerNodesEnum {
-    translationJobs = 'translationJobs'
+    translationJobs = 'translationJobs',
+    translator = 'translator'
   }
 
 export interface AppState {

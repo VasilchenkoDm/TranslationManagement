@@ -3,8 +3,8 @@ import { Resolve } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store";
 import { Observable, filter, take } from "rxjs";
-import * as translationJobAction from '../../translation-job/store/translation-job.actions';
-import * as translationJobSelector from '../../translation-job/store/translation-job.selectors';
+import * as translationJobAction from '../../features/translation-job/store/translation-job.actions';
+import * as translationJobSelector from '../../features/translation-job/store/translation-job.selectors';
 import { ResponseGetListTranslationJobModel } from "../models/translation-job";
 
 @Injectable({

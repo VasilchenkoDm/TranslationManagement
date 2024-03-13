@@ -30,7 +30,7 @@ namespace TranslationManagement.DataAccess.Repositories.Base
         public async Task Update(T entity)
         {
             _entities.Update(entity);
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
     }

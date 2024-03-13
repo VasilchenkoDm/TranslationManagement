@@ -44,25 +44,10 @@
     font-size: 16px;
 }
 
-.clear-btn {
-    position: absolute;
-    background-color: initial;
-    border: none;
-    right: 14px;
-    top: 5px;
-    cursor: pointer;
-    z-index: 12;
-}
-
 .table-header-filter {
     padding-right: 15px;
 }
 
 .filter-wrap {
     display: flex;
-}
-  
-.mat-mdc-table tr.mat-mdc-row:hover {   
-    background-color: whitesmoke; 
-    cursor: pointer;
 }

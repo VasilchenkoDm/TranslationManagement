@@ -5,13 +5,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from "./shared/shared.module";
 import { StoreModule } from '@ngrx/store';
-import { TranslationJobStoreModule } from "./translation-job/store/translation-job.store.module";
+import { TranslationJobStoreModule } from "./features/translation-job/store/translation-job.store.module";
 import { reducers } from './store/app-meta.reducer';
 import { EffectsModule } from "@ngrx/effects";
 import { HttpClientModule } from "@angular/common/http";
+import { TranslatorStoreModule } from "./features/translator/store/translators.store.module";
 
 const STORE = [
     TranslationJobStoreModule,
+    TranslatorStoreModule,
 
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([])

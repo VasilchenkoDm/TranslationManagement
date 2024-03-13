@@ -83,7 +83,7 @@ namespace TranslationManagement.BusinessLogic.Services
             translationJob.Status = translationJobStatus;
             await _translationJobRepository.Update(translationJob);
         }
-
+        
         public async Task Assign(RequestAssignTranslationJobModel requestModel)
         {
             TranslationJob translationJob = await _translationJobRepository.GetById(requestModel.Id);

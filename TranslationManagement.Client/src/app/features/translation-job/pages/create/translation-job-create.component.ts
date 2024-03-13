@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
-import { RequestCreateTranslationJobModel } from "../../../core/models/translation-job";
+import { RequestCreateTranslationJobModel } from "../../../../core/models/translation-job";
 
 @Component({
     selector: 'app-translation-job-create',
@@ -9,17 +9,17 @@ import { RequestCreateTranslationJobModel } from "../../../core/models/translati
     styleUrls: ['./translation-job-create.component.scss']
 })
 export class TranslationJobCreateComponent implements OnInit {
-    
+
     public createTranslationJobForm!: FormGroup;
-    
-    constructor(public dialogRef: MatDialogRef<TranslationJobCreateComponent>){        
+
+    constructor(public dialogRef: MatDialogRef<TranslationJobCreateComponent>) {
     }
 
     ngOnInit(): void {
         this.initForm();
     }
 
-    public onSubmit(): void {        
+    public onSubmit(): void {
         if (this.createTranslationJobForm.invalid) {
             Object.keys(this.createTranslationJobForm.controls).forEach(field => {
                 const control = this.createTranslationJobForm.get(field);
@@ -38,7 +38,7 @@ export class TranslationJobCreateComponent implements OnInit {
         this.dialogRef.close();
     }
 
-    private initForm(): void {                
+    private initForm(): void {
         this.createTranslationJobForm = new FormGroup({
             customerName: new FormControl('', Validators.required),
             originalContent: new FormControl('', Validators.required)

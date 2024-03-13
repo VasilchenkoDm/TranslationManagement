@@ -13,6 +13,8 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatSelectModule } from "@angular/material/select";
+import { CommonModule } from "@angular/common";
 
 const MATERIAL = [
     MatSidenavModule,
@@ -27,18 +29,21 @@ const MATERIAL = [
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule,
 ];
 
 @NgModule({
     imports: [
         RouterModule,
+        CommonModule,
         MATERIAL
     ],
     declarations: [
         LayoutComponent
     ],
     exports: [
+        CommonModule,
         MATERIAL
     ]
 })

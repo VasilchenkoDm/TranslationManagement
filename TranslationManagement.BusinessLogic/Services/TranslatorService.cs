@@ -4,6 +4,7 @@ using TranslationManagement.BusinessLogic.Services.Interfaces;
 using TranslationManagement.DataAccess.Entities;
 using TranslationManagement.DataAccess.Repositories.Interfaces;
 using TranslationManagement.Shared.Enums;
+using TranslationManagement.ViewModels.TranslationJob;
 using TranslationManagement.ViewModels.Translator;
 
 namespace TranslationManagement.BusinessLogic.Services
@@ -25,7 +26,8 @@ namespace TranslationManagement.BusinessLogic.Services
         public async Task<ResponseGetListTranslatorModel> GetList(string translatorName = default)
         {
             IEnumerable<Translator> translators = await _translatorRepository.GetList(translatorName);
-            var responseModel = _mapper.Map<ResponseGetListTranslatorModel>(translators);
+            var responseModel = new ResponseGetListTranslatorModel();
+            responseModel.Items = _mapper.Map<IEnumerable<GetListTranslatorModelItem>>(translators);
             return responseModel;
         }
 
