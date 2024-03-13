@@ -37,11 +37,12 @@ namespace TranslationManagement.BusinessLogic.Services
         public async Task<ResponseGetListTranslationJobModel> GetList()
         {
             IEnumerable<TranslationJob> translationJobs = await _translationJobRepository.GetList();
-            var responseModel = _mapper.Map<ResponseGetListTranslationJobModel>(translationJobs);
+            var responseModel = new ResponseGetListTranslationJobModel();
+            responseModel.Items = _mapper.Map<IEnumerable<GetListTranslationJobModelItem>>(translationJobs);
             return responseModel;
         }
 
-        public async Task Add(RequestAddTranslationJobModel requestModel)
+        public async Task Create(RequestAddTranslationJobModel requestModel)
         {
             var translationJob = _mapper.Map<RequestAddTranslationJobModel, TranslationJob>(requestModel);
             translationJob.Status = TranslationJobStatusEnum.New;
@@ -53,15 +54,14 @@ namespace TranslationManagement.BusinessLogic.Services
             _logger.LogInformation("New job notification sent");
         }
 
-        public Task AddWithFile(RequestAddWithFileTranslationJobModel requestModel)
+        public Task CreateWithFile(RequestAddWithFileTranslationJobModel requestModel)
         {
             TranslationJobModel translationJob = _translationJobFileReader.ReadFile(requestModel.File);
             var newJob = new RequestAddTranslationJobModel();
             newJob.OriginalContent = translationJob.Content;
-            newJob.TranslatedContent = default;
             newJob.CustomerName = string.IsNullOrEmpty(translationJob.Customer) ? 
                 requestModel.CustomerName : translationJob.Customer;
-            return Add(newJob);
+            return Create(newJob);
         }
 
         public async Task UpdateStatus(RequestUpdateStatusTranslationJobModel requestModel)

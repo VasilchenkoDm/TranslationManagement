@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { TranslationJobStoreModule } from "./translation-job/store/translation-job.store.module";
 import { reducers } from './store/app-meta.reducer';
 import { EffectsModule } from "@ngrx/effects";
+import { HttpClientModule } from "@angular/common/http";
 
 const STORE = [
     TranslationJobStoreModule,
@@ -25,7 +26,8 @@ const STORE = [
         BrowserModule,
         BrowserAnimationsModule,
         SharedModule,
-        AppRoutingModule
+        AppRoutingModule,
+        HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent]

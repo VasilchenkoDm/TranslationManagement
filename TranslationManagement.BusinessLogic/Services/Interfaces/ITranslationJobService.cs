@@ -5,8 +5,8 @@ namespace TranslationManagement.BusinessLogic.Services.Interfaces
     public interface ITranslationJobService
     {
         Task<ResponseGetListTranslationJobModel> GetList();
-        Task Add(RequestAddTranslationJobModel requestModel);
-        Task AddWithFile(RequestAddWithFileTranslationJobModel requestModel);
+        Task Create(RequestAddTranslationJobModel requestModel);
+        Task CreateWithFile(RequestAddWithFileTranslationJobModel requestModel);
         Task UpdateStatus(RequestUpdateStatusTranslationJobModel requestModel);
         Task Assign(RequestAssignTranslationJobModel requestModel);
     }

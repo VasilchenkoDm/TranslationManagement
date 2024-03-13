@@ -8,5 +8,5 @@ const translationJobFeatureSelector = createFeatureSelector<TranslationJobsState
 
 export const translationJobsData = createSelector(
     translationJobFeatureSelector,
-    (state: TranslationJobsState) => state?.allTranslationJobs
+    (state: TranslationJobsState) => state?.translationJobs
 );

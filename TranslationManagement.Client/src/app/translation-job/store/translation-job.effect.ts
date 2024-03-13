@@ -4,6 +4,7 @@ import { TranslationJobService } from "../../core/services/translation-job.servi
 import { catchError, map, of, switchMap } from "rxjs";
 import * as translationJobActions from './translation-job.actions';
 import * as errorActions from '../../store/errors/error.actions';
+import { ResponseGetListTranslationJobModel } from "../../core/models/translation-job";
 
 @Injectable()
 export class TranslationJobEffects {
@@ -19,14 +20,7 @@ export class TranslationJobEffects {
 
             switchMap(() => {
                 return this.translationJobService.getJobs().pipe(
-                    map((data: any) => {
-
-                        if (!data.isSuccessful)
-                            return errorActions.errorAction({
-                                error: data.message,
-                                isApiError: true
-                            });
-
+                    map((data: ResponseGetListTranslationJobModel) => {
                         return translationJobActions.getTranslationJobsSuccess(data);
                     }),
                     catchError((error) => {

@@ -1,3 +1,5 @@
+import { ResponseGetListTranslationJobModel } from "../../core/models/translation-job";
+
 export interface TranslationJobsState {
-    allTranslationJobs: any;
+    translationJobs: ResponseGetListTranslationJobModel | undefined;
 }

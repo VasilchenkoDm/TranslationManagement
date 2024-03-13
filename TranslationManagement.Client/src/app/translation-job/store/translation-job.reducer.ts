@@ -1,19 +1,20 @@
 import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 import { TranslationJobsState } from ".";
 import * as translationJobActions from './translation-job.actions';
+import { ResponseGetListTranslationJobModel } from "../../core/models/translation-job";
 
 const initialState: TranslationJobsState = {
-    allTranslationJobs: undefined
+    translationJobs: undefined
 };
 
 export const translationJobsReducer: ActionReducer<TranslationJobsState, Action> =
     createReducer(
         initialState,
         on(
-            translationJobActions.getTranslationJobs,
-            (state: TranslationJobsState, data: any) => ({
+            translationJobActions.getTranslationJobsSuccess,
+            (state: TranslationJobsState, data: ResponseGetListTranslationJobModel) => ({
                 ...state,
-                allTranslationJobs: data
+                translationJobs: data
             })
         )
     );

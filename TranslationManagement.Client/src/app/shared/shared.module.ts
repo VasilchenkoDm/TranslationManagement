@@ -9,34 +9,28 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from "@angular/material/table";
-import { MatSortModule } from "@angular/material/sort";
+
+const MATERIAL = [
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+    MatListModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatTableModule
+];
 
 @NgModule({
     imports: [
         RouterModule,
-        MatSidenavModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatMenuModule,
-        MatListModule,
-        MatExpansionModule,
-        MatButtonModule,
-        MatTableModule,
-        MatSortModule
+        MATERIAL
     ],
     declarations: [
         LayoutComponent
     ],
     exports: [
-        MatSidenavModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatMenuModule,
-        MatListModule,
-        MatExpansionModule,
-        MatButtonModule,
-        MatTableModule,
-        MatSortModule
+        MATERIAL
     ]
 })
 export class SharedModule { 

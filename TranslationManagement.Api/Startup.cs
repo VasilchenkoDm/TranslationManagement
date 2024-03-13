@@ -24,6 +24,17 @@ namespace TranslationManagement.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TranslationManagement.Api", Version = "v1" });
             });
 
+            services.AddCors(config =>
+            {
+                config.AddPolicy("policy",
+                    builder => builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .SetIsOriginAllowed((host) => true)
+                );
+            });
+
             services.ConfigureBusinessLogic(Configuration);
         }
 
@@ -31,7 +42,7 @@ namespace TranslationManagement.Api
         {
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TranslationManagement.Api v1"));
-
+            app.UseCors("policy");
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
