@@ -1,0 +1,68 @@
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.job-table {
+    padding: 0 2rem 0 2rem;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.mat-elevation-z8 {
+    td {
+        padding: 5px 15px 5px 15px;
+        line-height: 20px;
+    }
+
+    td:first-child {
+        padding-left: 24px;
+    }
+}
+
+.more-btn {
+    border-style: none;
+    background-color: initial;
+    outline: none;
+}
+
+.delete-btn {
+    color: red;
+}
+
+.paginator {
+    ::ng-deep {
+        .mat-paginator-outer-container {
+            .mat-paginator-container {
+                justify-content: space-between;
+            }
+        }
+    }
+}
+
+.clear-icon {
+    font-size: 16px;
+}
+
+.clear-btn {
+    position: absolute;
+    background-color: initial;
+    border: none;
+    right: 14px;
+    top: 5px;
+    cursor: pointer;
+    z-index: 12;
+}
+
+.table-header-filter {
+    padding-right: 15px;
+}
+
+.filter-wrap {
+    display: flex;
+}
+  
+.mat-mdc-table tr.mat-mdc-row:hover {   
+    background-color: whitesmoke; 
+    cursor: pointer;
+}
