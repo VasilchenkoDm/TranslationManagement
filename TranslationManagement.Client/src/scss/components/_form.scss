@@ -1,0 +1,128 @@
+.form-field-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.task-select,
+.custom-input {
+    width: calc(50% - 35px);
+    margin-bottom: 30px;
+
+    .icon {
+        display: inline !important;
+    }
+
+    .mat-select-arrow {
+        display: none;
+    }
+
+    .mat-select-value {
+        display: initial;
+    }
+
+    .per-icon {
+        margin-right: 0;
+    }
+
+    .mat-form-field-infix {
+        border-top: 0;
+        padding: 15px 0px 15px 0px;
+    }
+
+    .mat-form-field-flex {
+        align-items: center !important;
+        padding: 5px 8px 0px 10px !important;
+    }
+
+    .mat-form-field-suffix {
+        top: 0.15em !important;
+    }
+
+    .mat-form-field-label-wrapper {
+        top: -0.64375em;
+    }
+
+    .mat-form-field-wrapper {
+        padding-bottom: 0;
+    }
+
+    .mat-form-field-outline {
+        color: #d9e2ec;
+    }
+}
+
+.ap-input {
+    width: calc(50% - 35px);
+
+    .e-control-wrapper {
+        border-bottom: none;
+        border: 1px solid #ccd4de !important;
+        border-radius: 4px;
+        padding: 8px 0px 8px 10px;
+        font-size: 14px;
+    }
+
+    .e-input-group:not(.e-float-icon-left):not(.e-float-input)::before {
+        background: none;
+    }
+
+    .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::after {
+        background: none;
+    }
+
+    .e-input-group.e-control-wrapper .e-input-group-icon:last-child {
+        color: #3f51b5;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .e-input-group-icon.e-date-icon::before,
+    *.e-control-wrapper .e-input-group-icon.e-date-icon::before {
+        font-size: 22px;
+        padding-right: 3px;
+    }
+
+    .e-time-wrapper .e-time-icon.e-icons::before,
+    *.e-control-wrapper.e-time-wrapper .e-time-icon.e-icons::before {
+        font-size: 22px;
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.long-wrapper {
+    flex-wrap: nowrap !important;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .long-select {
+        margin-bottom: 0;
+    }
+
+    .long-btn {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+}
+
+.blue-snackbar {
+    background-color: #3f51b5;
+
+    &.mat-snack-bar-container {
+        display: flex;
+        align-items: center;
+        min-height: 70px;
+    }
+
+    .mat-button {
+        background-color: #ffffff;
+        color: #3f51b5;
+        margin-right: 9px;
+    }
+}

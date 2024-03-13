@@ -9,6 +9,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from "@angular/material/table";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 const MATERIAL = [
     MatSidenavModule,
@@ -18,7 +22,12 @@ const MATERIAL = [
     MatListModule,
     MatExpansionModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
 ];
 
 @NgModule({

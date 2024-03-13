@@ -2,7 +2,7 @@
 
 namespace TranslationManagement.ViewModels.TranslationJob
 {
-    public class RequestAddTranslationJobModel
+    public class RequestCreateTranslationJobModel
     {
         [Required]
         public string CustomerName { get; set; }

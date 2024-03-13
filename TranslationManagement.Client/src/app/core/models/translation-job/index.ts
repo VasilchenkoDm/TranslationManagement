@@ -1,1 +1,3 @@
 export * from './response/response-get-list-translation-job.model';
+
+export * from './request/request-create-translation-job.model';

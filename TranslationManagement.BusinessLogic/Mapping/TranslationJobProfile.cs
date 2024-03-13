@@ -10,7 +10,7 @@ namespace TranslationManagement.BusinessLogic.Mapping
         {
             CreateMap<TranslationJob, GetListTranslationJobModelItem>()
                 .ForMember(x => x.TranslatorName, opt => opt.MapFrom(src => src.Translator.Name));
-            CreateMap<RequestAddTranslationJobModel, TranslationJob>();
+            CreateMap<RequestCreateTranslationJobModel, TranslationJob>();
         }
     }
 }

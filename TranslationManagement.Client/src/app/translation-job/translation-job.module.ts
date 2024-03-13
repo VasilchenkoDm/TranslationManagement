@@ -1,7 +1,8 @@
 import { NgModule } from "@angular/core";
-import { TranslationJobListComponent } from "./list/translation-job-list.component";
+import { TranslationJobListComponent } from "./pages/list/translation-job-list.component";
 import { TranslationJobRoutingModule } from "./translation-job-routing.module";
 import { SharedModule } from "../shared/shared.module";
+import { TranslationJobCreateComponent } from "./pages/create/translation-job-create.component";
 
 @NgModule({
     imports: [
@@ -9,7 +10,8 @@ import { SharedModule } from "../shared/shared.module";
         TranslationJobRoutingModule
     ],
     declarations: [
-        TranslationJobListComponent
+        TranslationJobListComponent,
+        TranslationJobCreateComponent
     ]
 })
 export class TranslationJobModule { }

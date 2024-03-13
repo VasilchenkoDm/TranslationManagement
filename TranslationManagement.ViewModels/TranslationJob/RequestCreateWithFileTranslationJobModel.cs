@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TranslationManagement.ViewModels.TranslationJob
 {
-    public class RequestAddWithFileTranslationJobModel
+    public class RequestCreateWithFileTranslationJobModel
     {
         [Required]
         public string CustomerName { get; set; }

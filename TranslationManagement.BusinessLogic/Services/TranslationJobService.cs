@@ -42,9 +42,9 @@ namespace TranslationManagement.BusinessLogic.Services
             return responseModel;
         }
 
-        public async Task Create(RequestAddTranslationJobModel requestModel)
+        public async Task Create(RequestCreateTranslationJobModel requestModel)
         {
-            var translationJob = _mapper.Map<RequestAddTranslationJobModel, TranslationJob>(requestModel);
+            var translationJob = _mapper.Map<RequestCreateTranslationJobModel, TranslationJob>(requestModel);
             translationJob.Status = TranslationJobStatusEnum.New;
             translationJob.Price = CalculatePrice(translationJob.OriginalContent.Length);
             int translationJobId = await _translationJobRepository.Insert(translationJob);
@@ -54,10 +54,10 @@ namespace TranslationManagement.BusinessLogic.Services
             _logger.LogInformation("New job notification sent");
         }
 
-        public Task CreateWithFile(RequestAddWithFileTranslationJobModel requestModel)
+        public Task CreateWithFile(RequestCreateWithFileTranslationJobModel requestModel)
         {
             TranslationJobModel translationJob = _translationJobFileReader.ReadFile(requestModel.File);
-            var newJob = new RequestAddTranslationJobModel();
+            var newJob = new RequestCreateTranslationJobModel();
             newJob.OriginalContent = translationJob.Content;
             newJob.CustomerName = string.IsNullOrEmpty(translationJob.Customer) ? 
                 requestModel.CustomerName : translationJob.Customer;
@@ -84,18 +84,6 @@ namespace TranslationManagement.BusinessLogic.Services
             await _translationJobRepository.Update(translationJob);
         }
 
-        private bool IsNewStatusValid(TranslationJobStatusEnum newStatus, TranslationJobStatusEnum oldStatus) 
-        {
-            bool isStatusValid = (oldStatus == TranslationJobStatusEnum.New && newStatus == TranslationJobStatusEnum.Completed) ||
-                oldStatus == TranslationJobStatusEnum.Completed || newStatus == TranslationJobStatusEnum.New;
-            return isStatusValid;
-        }
-
-        private decimal CalculatePrice(int contentLength)
-        {
-            return contentLength * TranslationJobConstants.PricePerCharacter;
-        }
-
         public async Task Assign(RequestAssignTranslationJobModel requestModel)
         {
             TranslationJob translationJob = await _translationJobRepository.GetById(requestModel.Id);
@@ -114,6 +102,18 @@ namespace TranslationManagement.BusinessLogic.Services
             }
             translationJob.TranslatorId = translator.Id;
             await _translationJobRepository.Update(translationJob);
+        }
+
+        private bool IsNewStatusValid(TranslationJobStatusEnum newStatus, TranslationJobStatusEnum oldStatus)
+        {
+            bool isStatusValid = (oldStatus == TranslationJobStatusEnum.New && newStatus == TranslationJobStatusEnum.Completed) ||
+                oldStatus == TranslationJobStatusEnum.Completed || newStatus == TranslationJobStatusEnum.New;
+            return isStatusValid;
+        }
+
+        private decimal CalculatePrice(int contentLength)
+        {
+            return contentLength * TranslationJobConstants.PricePerCharacter;
         }
 
     }

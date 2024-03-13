@@ -14,7 +14,7 @@ export class TranslationJobEffects {
     ) {
     }
 
-    searchLocations$ = createEffect(() =>
+    getTranslationJobs$ = createEffect(() =>
         this.actions$.pipe(
             ofType(translationJobActions.getTranslationJobs),
 
@@ -22,6 +22,27 @@ export class TranslationJobEffects {
                 return this.translationJobService.getJobs().pipe(
                     map((data: ResponseGetListTranslationJobModel) => {
                         return translationJobActions.getTranslationJobsSuccess(data);
+                    }),
+                    catchError((error) => {
+                        return of(
+                            errorActions.errorAction({
+                                error: JSON.stringify(error),
+                                isApiError: true
+                            })
+                        );
+                    })
+                );
+            })
+        )
+    );
+
+    createTranslationJob$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(translationJobActions.translationJobCreate),
+            switchMap((action) => {
+                return this.translationJobService.create(action).pipe(
+                    map(() => {
+                        return translationJobActions.getTranslationJobs();
                     }),
                     catchError((error) => {
                         return of(
