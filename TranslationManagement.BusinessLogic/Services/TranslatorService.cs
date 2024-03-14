@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using TranslationManagement.BusinessLogic.Services.Interfaces;
 using TranslationManagement.DataAccess.Entities;
 using TranslationManagement.DataAccess.Repositories.Interfaces;
+using TranslationManagement.Shared.Constants;
 using TranslationManagement.Shared.Enums;
 using TranslationManagement.ViewModels.TranslationJob;
 using TranslationManagement.ViewModels.Translator;
@@ -42,12 +43,12 @@ namespace TranslationManagement.BusinessLogic.Services
             _logger.LogInformation($"User status update request: {requestModel.Status} for user {requestModel.Id}");
             if (!Enum.TryParse(requestModel.Status, out TranslatorStatusEnum translatorStatus))
             {
-                throw new ArgumentException("unknown status");
+                throw new ArgumentException(ExceptionMessageConstants.UnknownStatus);
             }
             Translator translator = await _translatorRepository.GetById(requestModel.Id);
             if (translator is null)  
             {
-                throw new KeyNotFoundException("translator not found");
+                throw new KeyNotFoundException(ExceptionMessageConstants.TranslatorNotFound);
             }
             translator.Status = translatorStatus;
             await _translatorRepository.Update(translator);

@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using TranslationManagement.BusinessLogic.Utilities.TranslationJobFileReader.Interfaces;
 using TranslationManagement.DataAccess.Entities;
+using TranslationManagement.Shared.Constants;
 
 namespace TranslationManagement.BusinessLogic.Utilities.TranslationJobFileReader
 {
@@ -21,7 +22,7 @@ namespace TranslationManagement.BusinessLogic.Utilities.TranslationJobFileReader
             }
             else
             {
-                throw new NotSupportedException("unsupported file");
+                throw new NotSupportedException(ExceptionMessageConstants.UnsupportedFile);
             }
 
             var reader = new StreamReader(file.OpenReadStream());

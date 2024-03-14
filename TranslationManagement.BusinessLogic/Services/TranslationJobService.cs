@@ -76,16 +76,16 @@ namespace TranslationManagement.BusinessLogic.Services
             _logger.LogInformation($"Job status update request received: {requestModel.Status} for job {requestModel.Id} by translator {requestModel.TranslatorId}");
             if (!Enum.TryParse(requestModel.Status, out TranslationJobStatusEnum translationJobStatus))
             {
-                throw new ArgumentException("invalid status");
+                throw new ArgumentException(ExceptionMessageConstants.UnknownStatus);
             }
             TranslationJob translationJob = await _translationJobRepository.GetById(requestModel.Id);
             if (translationJob is null)
             {
-                throw new KeyNotFoundException("translation job not found");
+                throw new KeyNotFoundException(ExceptionMessageConstants.TranslationJobNotFound);
             }
             if (IsNewStatusValid(translationJobStatus, translationJob.Status))
             {
-                throw new ArgumentException("invalid status change");
+                throw new ArgumentException(ExceptionMessageConstants.InvalidStatusChange);
             }
             translationJob.Status = translationJobStatus;
             await _translationJobRepository.Update(translationJob);
@@ -96,16 +96,16 @@ namespace TranslationManagement.BusinessLogic.Services
             TranslationJob translationJob = await _translationJobRepository.GetById(requestModel.Id);
             if (translationJob is null)
             {
-                throw new KeyNotFoundException("translation job not found");
+                throw new KeyNotFoundException(ExceptionMessageConstants.TranslationJobNotFound);
             }
             Translator translator = await _translatorRepository.GetById(requestModel.TranslatorId);
             if (translator is null)
             {
-                throw new KeyNotFoundException("translator not found");
+                throw new KeyNotFoundException(ExceptionMessageConstants.TranslatorNotFound);
             }
             if (translator.Status != TranslatorStatusEnum.Certified)
             {
-                throw new ArgumentException("only Certified translators can work on jobs");
+                throw new ArgumentException(ExceptionMessageConstants.TranslatorStatusError);
             }
             translationJob.TranslatorId = translator.Id;
             await _translationJobRepository.Update(translationJob);
