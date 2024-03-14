@@ -13,7 +13,7 @@ namespace TranslationManagement.DataAccess
         {
             AddDbContext(services, configuration);
             RegisterDependencies(services);
-            //MigrateDatabase(services);
+            Initializer.Init(services);
         }
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
@@ -27,13 +27,6 @@ namespace TranslationManagement.DataAccess
         {
             services.AddScoped<ITranslatorRepository, TranslatorRepository>();
             services.AddScoped<ITranslationJobRepository, TranslationJobRepository>();
-        }
-
-        private static void MigrateDatabase(IServiceCollection services) 
-        {
-            IServiceProvider serviceProvider = services.BuildServiceProvider();
-            ApplicationDbContext context = serviceProvider.GetService<ApplicationDbContext>();
-            context.Database.Migrate();
         }
 
     }

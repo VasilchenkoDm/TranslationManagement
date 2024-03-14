@@ -48,10 +48,17 @@ namespace TranslationManagement.BusinessLogic.Services
             translationJob.Status = TranslationJobStatusEnum.New;
             translationJob.Price = CalculatePrice(translationJob.OriginalContent.Length);
             int translationJobId = await _translationJobRepository.Insert(translationJob);
-            while (!_notificationService.SendNotification("Job created: " + translationJobId).Result)
+            try
             {
+                while (!_notificationService.SendNotification($"Job created: {translationJobId}").Result)
+                {
+                }
+                _logger.LogInformation($"New job:{translationJobId} notification has been sent");
             }
-            _logger.LogInformation("New job notification sent");
+            catch
+            {
+                _logger.LogInformation($"New job:{translationJobId} notification has not been sent");
+            }
         }
 
         public Task CreateWithFile(RequestCreateWithFileTranslationJobModel requestModel)
