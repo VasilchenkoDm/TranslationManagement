@@ -5,7 +5,7 @@ namespace TranslationManagement.BusinessLogic.Services.Interfaces
     public interface ITranslatorService
     {
         Task<ResponseGetListTranslatorModel> GetList(string translatorName = "", string translatorStatus = "");
-        Task Add(RequestAddTranslatorModel requestModel);
+        Task Create(RequestCreateTranslatorModel requestModel);
         Task UpdateStatus(RequestUpdateStatusTranslatorModel requestModel);
     }
 }

@@ -31,11 +31,11 @@ namespace TranslationManagement.UnitTests.Controllers
         public async void AddTranslatorShouldBeNoContentResult()
         {
             //Arrange 
-            var translatorModel = A.Fake<RequestAddTranslatorModel>();
+            var translatorModel = A.Fake<RequestCreateTranslatorModel>();
             var controller = new TranslatorManagementController(_translatorService);
 
             //Act
-            var result = await controller.AddTranslator(translatorModel);
+            var result = await controller.CreateTranslator(translatorModel);
 
             //Assert
             result.Should().BeOfType(typeof(NoContentResult));

@@ -2,7 +2,7 @@
 
 namespace TranslationManagement.ViewModels.Translator
 {
-    public class RequestAddTranslatorModel
+    public class RequestCreateTranslatorModel
     {
         [Required]
         public string Name { get; set; }

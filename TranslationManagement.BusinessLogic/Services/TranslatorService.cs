@@ -31,9 +31,9 @@ namespace TranslationManagement.BusinessLogic.Services
             return responseModel;
         }
 
-        public async Task Add(RequestAddTranslatorModel requestModel)
+        public async Task Create(RequestCreateTranslatorModel requestModel)
         {
-            var translator = _mapper.Map<RequestAddTranslatorModel, Translator>(requestModel);
+            var translator = _mapper.Map<RequestCreateTranslatorModel, Translator>(requestModel);
             await _translatorRepository.Insert(translator);
         }
 

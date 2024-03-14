@@ -16,6 +16,9 @@ namespace TranslationManagement.Api.Controlers
             _translatorService = translatorService;
         }
 
+        /// <summary>
+        /// Retrieves all translators.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetTranslators()
         {
@@ -23,6 +26,10 @@ namespace TranslationManagement.Api.Controlers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Retrieves all translators by the translator name.
+        /// </summary>
+        /// <param name="translatorName">The translator name.</param>
         [HttpGet]
         public async Task<IActionResult> GetTranslatorsByName(string translatorName)
         {
@@ -30,6 +37,10 @@ namespace TranslationManagement.Api.Controlers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Retrieves all translators by the translator status.
+        /// </summary>
+        /// <param name="translatorStatus">The translator status.</param>
         [HttpGet]
         public async Task<IActionResult> GetTranslatorsByStatus(string translatorStatus)
         {
@@ -37,13 +48,21 @@ namespace TranslationManagement.Api.Controlers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Adds a new translator to the database.
+        /// </summary>
+        /// <param name="requestModel">The create translator information.</param>
         [HttpPost]
-        public async Task<IActionResult> AddTranslator([FromBody] RequestAddTranslatorModel requestModel)
+        public async Task<IActionResult> CreateTranslator([FromBody] RequestCreateTranslatorModel requestModel)
         {
-            await _translatorService.Add(requestModel);
+            await _translatorService.Create(requestModel);
             return NoContent();
         }
 
+        /// <summary>
+        /// Updates an existing translator status in the database.
+        /// </summary>
+        /// <param name="requestModel">The updated translator information.</param>
         [HttpPost]
         public async Task<IActionResult> UpdateTranslatorStatus([FromBody] RequestUpdateStatusTranslatorModel requestModel)
         {

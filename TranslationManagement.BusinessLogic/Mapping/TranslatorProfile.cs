@@ -9,7 +9,7 @@ namespace TranslationManagement.BusinessLogic.Mapping
         public TranslatorProfile()
         {
             CreateMap<Translator, GetListTranslatorModelItem>();
-            CreateMap<RequestAddTranslatorModel, Translator>();
+            CreateMap<RequestCreateTranslatorModel, Translator>();
         }
     }
 }

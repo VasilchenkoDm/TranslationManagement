@@ -38,12 +38,12 @@ namespace TranslationManagement.UnitTests.Services
         public async void AddShouldNotThrow()
         {
             //Arrange 
-            var translatorModel = A.Fake<RequestAddTranslatorModel>();
+            var translatorModel = A.Fake<RequestCreateTranslatorModel>();
             var service = new TranslatorService(_mapper, _logger, _translatorRepository);
 
             //Act                       
             Func<Task> result = async () => {
-                await service.Add(translatorModel);
+                await service.Create(translatorModel);
             };
 
             //Assert
