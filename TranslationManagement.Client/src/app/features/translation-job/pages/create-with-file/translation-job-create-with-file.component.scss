@@ -15,29 +15,10 @@
     margin-bottom: 15px;
 }
 
-.input-wrap {
-    display: flex;
-    justify-content: space-between;
-}
-
 .custom-input {
     &.mat-focused {
         .date {
             color: #3f51b5;
         }
-    }
-}
-
-.check-container {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-
-    div:first-child {
-        margin-right: 50px;
-    }
-
-    mat-label {
-        margin-right: 20px;
     }
 }

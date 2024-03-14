@@ -1,16 +1,5 @@
-.mat-form-field {
-    font-size: 14px;
-    width: 100%;
-}
-
 .add-job-btn {
     margin-left: 5px;
-}
-
-.job-table {
-    padding: 0 2rem 0 2rem;
-    background-color: white;
-    border-radius: 10px;
 }
 
 .mat-elevation-z8 {
@@ -28,30 +17,4 @@
     border-style: none;
     background-color: initial;
     outline: none;
-}
-
-.delete-btn {
-    color: red;
-}
-
-.paginator {
-    ::ng-deep {
-        .mat-paginator-outer-container {
-            .mat-paginator-container {
-                justify-content: space-between;
-            }
-        }
-    }
-}
-
-.clear-icon {
-    font-size: 16px;
-}
-
-.table-header-filter {
-    padding-right: 15px;
-}
-
-.filter-wrap {
-    display: flex;
 }

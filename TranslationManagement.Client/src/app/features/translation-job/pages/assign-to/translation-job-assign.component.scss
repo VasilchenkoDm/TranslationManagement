@@ -15,13 +15,9 @@
     margin-bottom: 15px;
 }
 
-.input-wrap {
-    display: flex;
-    justify-content: space-between;
-}
-
 .custom-input {
     display: contents;
+
     &.mat-focused {
         .date {
             color: #3f51b5;

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TranslationManagement.BusinessLogic;
 
@@ -26,7 +27,7 @@ namespace TranslationManagement.Api
 
             services.AddCors(config =>
             {
-                config.AddPolicy("policy",
+                config.AddPolicy("development_policy",
                     builder => builder
                     .AllowAnyMethod()
                     .AllowAnyHeader()
@@ -40,9 +41,12 @@ namespace TranslationManagement.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TranslationManagement.Api v1"));
-            app.UseCors("policy");
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TranslationManagement.Api v1"));
+                app.UseCors("development_policy");
+            }            
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>

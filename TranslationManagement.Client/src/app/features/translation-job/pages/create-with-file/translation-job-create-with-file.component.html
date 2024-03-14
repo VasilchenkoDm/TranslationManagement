@@ -14,6 +14,7 @@
                 <button mat-flat-button color="primary" (click)="fileInput.click()">Choose File TXT or XML</button>
                 <p *ngIf="attachment">{{attachment.name}}</p>
                 <p *ngIf="isUnsuportedFileType">Unsupported File</p>
+                <p *ngIf="attachmentRequired">File Required</p>
             </div>
         </div>
     </form>
