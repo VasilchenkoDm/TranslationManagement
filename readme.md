@@ -41,3 +41,23 @@ Our tools of choice are React (CRA) + Typescript but use what you prefer
 Clone/fork to your repo and deliver as a link to your repo or share the `git-archive`. 
 Commit to master, follow usual git culture. 
 Please include a note regarding how to run.
+
+# How to run API
+- API does not require any special steps to run.
+
+# API additional features list
+- Only Certified translators can be assigned on the Job. 
+- Endpoints for track (set and get) which translator works on what job. Implemented by adding TranslationJob.AssignJob endpoint and 
+  displaying translators' names in Jobs List. 
+
+# How to run UI
+- Open working directory "TranslationManagement.Client".
+- Run "npm i" in the terminal.
+- If your local API URL is available at a URL different from "http://localhost:7729". Replace the API URL in src\environment\environment.ts. 
+- Run "ng serve" in the terminal.
+
+# UI features list
+- Visualize jobs.
+- Create a translation job.
+- Create a translation job with file.
+- Assign the translator to the translation job.
